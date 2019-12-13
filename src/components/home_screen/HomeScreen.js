@@ -33,20 +33,23 @@ class HomeScreen extends Component {
             <div className="dashboard container">
                 <div className="row">
                     <div className="col s12 m4">
-                        <TodoListLinks />
+                        <br></br>
+                        <br></br>
+                    <h5>Recent Work</h5>
+                        <TodoListLinks></TodoListLinks> />
                     </div>
 
-                    <div className="col s8">
-                        <div className="banner">
-                            @todo<br />
-                            List Maker
+                    <div className="col s8" style={{textAlign:"center"}}>
+                        <div className="banner" id="naa" style={{textAlign:"center", borderRadius:0}}>
+                        <br></br>
+                        <span class="black-text">Wireframer<sup>TM</sup></span>
                         </div>
-                        
-                        <div className="home_new_list_container">
+                        <br></br>
+                        <h4 className="home_new_list_container">
                                 <button className="home_new_list_button" onClick={this.handleNewList}>
-                                    Create a New To Do List
+                                    Create New Wireframe
                                 </button>
-                        </div>
+                        </h4>
                     </div>
                 </div>
             </div>

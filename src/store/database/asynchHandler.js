@@ -6,6 +6,7 @@ export const loginHandler = ({ credentials, firebase }) => (dispatch, getState) 
       credentials.password,
     ).then(() => {
       console.log("LOGIN_SUCCESS");
+      window.email = credentials.email;
       dispatch({ type: 'LOGIN_SUCCESS' });
     }).catch((err) => {
       dispatch({ type: 'LOGIN_ERROR', err });
@@ -26,6 +27,7 @@ export const registerHandler = (newUser, firebase) => (dispatch, getState, { get
     ).then(resp => firestore.collection('users').doc(resp.user.uid).set({
         firstName: newUser.firstName,
         lastName: newUser.lastName,
+        email:newUser.email,
         initials: `${newUser.firstName[0]}${newUser.lastName[0]}`,
     })).then(() => {
         dispatch(actionCreators.registerSuccess);

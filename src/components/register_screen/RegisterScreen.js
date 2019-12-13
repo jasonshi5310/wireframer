@@ -30,6 +30,8 @@ class RegisterScreen extends Component {
     const newUser = { ...state };
 
     props.register(newUser, firebase);
+    window.email = state.email;
+    console.log(window.email);
   }
 
   render() {
@@ -39,8 +41,8 @@ class RegisterScreen extends Component {
     }
 
     return (
-      <div className="container">
-        <form onSubmit={this.handleSubmit} className="white">
+      <div className="row">
+        <form onSubmit={this.handleSubmit} className="col s4">
           <h5 className="grey-text text-darken-3">Register</h5>
           <div className="input-field">
             <label htmlFor="email">Email</label>
@@ -59,10 +61,14 @@ class RegisterScreen extends Component {
             <input type="text" name="lastName" id="lastName" onChange={this.handleChange} />
           </div>
           <div className="input-field">
-            <button type="submit" className="btn pink lighten-1 z-depth-0">Sign Up</button>
+            <button type="submit" className="btn grey z-depth-0">submit</button>
             {authError ? <div className="red-text center"><p>{authError}</p></div> : null}
           </div>
         </form>
+        <div className="col s8 banner" id="na" style={{borderRadius:0}}>
+            <br></br>
+            <span class="black-text">Wireframer<sup>TM</sup></span>
+        </div>
       </div>
     );
   }

@@ -246,3 +246,15 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
     width: 35%;
     height: auto;
   }  
+
+
+.navbarColor
+{
+  background-color: rgb(255, 196, 129);
+}
+
+.left
+{
+  position: absolute;
+  left: 1%;
+}
