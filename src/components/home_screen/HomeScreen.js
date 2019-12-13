@@ -28,6 +28,30 @@ class HomeScreen extends Component {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
+        // var users = window.db.collection("users");
+        // // var users = state.firestore.ordered.users;
+        // console.log("Email "+window.email)
+        
+        // users.get().then(function(querySnapshot) {
+        //     querySnapshot.forEach(function(doc) {
+        //         // doc.data() is never undefined for query doc snapshots
+        //         console.log(doc.id, " => ", doc.data().email);
+        //         if (doc.data().email === window.email)
+        //         {
+        //             //console.log("dound")
+        //             window.userID = doc.id;
+        //             //console.log("dountID"+window.userID)
+        //             window.userData = doc.data();
+        //             window.wireframes = doc.data().wireframes;
+        //         }
+                
+        //     });
+        // })
+        // console.log("ID"+window.userID);
+        // const wireframes = window.wireframes;
+        // Object.keys(wireframes).map(function(key) {
+        //     console.log(wireframes[key])
+        //   });
 
         return (
             <div className="dashboard container">
@@ -36,7 +60,7 @@ class HomeScreen extends Component {
                         <br></br>
                         <br></br>
                     <h5>Recent Work</h5>
-                        <TodoListLinks></TodoListLinks> />
+                        <TodoListLinks wireframes={window.wireframes}></TodoListLinks>
                     </div>
 
                     <div className="col s8" style={{textAlign:"center"}}>
