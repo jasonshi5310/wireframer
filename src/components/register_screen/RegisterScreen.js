@@ -67,7 +67,7 @@ class RegisterScreen extends Component {
         </form>
         <div className="col s8 banner" id="na" style={{borderRadius:0}}>
             <br></br>
-            <span class="black-text">Wireframer<sup>TM</sup></span>
+            <span className="black-text">Wireframer<sup>TM</sup></span>
         </div>
       </div>
     );

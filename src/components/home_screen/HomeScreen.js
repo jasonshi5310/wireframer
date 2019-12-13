@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import { firestoreConnect, getFirebase } from 'react-redux-firebase';
-import TodoListLinks from './TodoListLinks'
+import WireframeLinks from './WireframeLinks'
 import { getFirestore } from 'redux-firestore';
+import firebase from 'firebase/app';
 
 class HomeScreen extends Component {
     handleNewList = () => 
@@ -28,25 +29,7 @@ class HomeScreen extends Component {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
-        // var users = window.db.collection("users");
-        // // var users = state.firestore.ordered.users;
-        // console.log("Email "+window.email)
-        
-        // users.get().then(function(querySnapshot) {
-        //     querySnapshot.forEach(function(doc) {
-        //         // doc.data() is never undefined for query doc snapshots
-        //         console.log(doc.id, " => ", doc.data().email);
-        //         if (doc.data().email === window.email)
-        //         {
-        //             //console.log("dound")
-        //             window.userID = doc.id;
-        //             //console.log("dountID"+window.userID)
-        //             window.userData = doc.data();
-        //             window.wireframes = doc.data().wireframes;
-        //         }
-                
-        //     });
-        // })
+        console.log("uid:"+firebase.auth().currentUser.uid)
         // console.log("ID"+window.userID);
         // const wireframes = window.wireframes;
         // Object.keys(wireframes).map(function(key) {
@@ -60,13 +43,13 @@ class HomeScreen extends Component {
                         <br></br>
                         <br></br>
                     <h5>Recent Work</h5>
-                        <TodoListLinks wireframes={window.wireframes}></TodoListLinks>
+                        <WireframeLinks wireframes={window.wireframes}></WireframeLinks>
                     </div>
 
                     <div className="col s8" style={{textAlign:"center"}}>
                         <div className="banner" id="naa" style={{textAlign:"center", borderRadius:0}}>
                         <br></br>
-                        <span class="black-text">Wireframer<sup>TM</sup></span>
+                        <span className="black-text">Wireframer<sup>TM</sup></span>
                         </div>
                         <br></br>
                         <h4 className="home_new_list_container">

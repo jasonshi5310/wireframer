@@ -65,7 +65,7 @@ class LoginScreen extends Component {
 
           <div className="col s8 banner" id="na" style={{textAlign:"center", borderRadius:0}}>
             <br></br>
-            <span class="black-text">Wireframer<sup>TM</sup></span>
+            <span className="black-text">Wireframer<sup>TM</sup></span>
           </div>
         </div>
 
