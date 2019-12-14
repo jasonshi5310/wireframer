@@ -1,172 +1,163 @@
 {
-    "todoLists": [
-        {
-            "key": 0,
-            "name": "Things I am Never Gonna Do",
-            "owner": "Rick Astley",
-            "items": [
+    "todoLists":
+        [
+            {
+                "key": 0,
+                "name": "My Dumb App",
+                "email": "me@me.com",
+                "items": [
                 {
-                    "key": 0,
-                    "description": "Give You Up",
-                    "due_date": "2019-09-30",
-                    "assigned_to": "Rick",
-                    "completed": true
+                    "key":0,
+                    "type": "container",
+                    "background": "#ffffff",
+                    "borderColor": "#000000",
+                    "BorderThickness": 2,
+                    "BorderRadius": 2,
+                    "width": "900px",
+                    "height": "800px",
+                    "x-pos":500,
+                    "y-pos":450
                 },
                 {
-                    "key": 1,
-                    "description": "Say Goodbye",
-                    "due_date": "2019-10-15",
-                    "assigned_to": "Rick",
-                    "completed": false
+                    "key":1,
+                    "type":"label",
+                    "defaultValue": "Login",
+                    "textColor": "#000000",
+                    "fontSize": 14,
+                    "x-pos":100,
+                    "y-pos":100
+            
                 },
                 {
-                    "key": 2,
-                    "description": "Make You Cry",
-                    "due_date": "2019-12-30",
-                    "assigned_to": "Bob",
-                    "completed": false
+                    "key":2,
+                    "type":"textfield",
+                    "defaultValue": "input",
+                    "textColor": "#AAA",
+                    "fontSize": 12,
+                    "background": "#ffffff",
+                    "borderColor": "#000000",
+                    "BorderThickness": 2,
+                    "BorderRadius": 2,
+                    "width": "200px",
+                    "height": "5opx",
+                    "x-pos":100,
+                    "y-pos":200
+                },
+                {
+                    "key":3,
+                    "type":"textfield",
+                    "defaultValue": "input",
+                    "textColor": "#AAA",
+                    "fontSize": 12,
+                    "background": "#ffffff",
+                    "borderColor": "#000000",
+                    "BorderThickness": 2,
+                    "BorderRadius": 2,
+                    "width": "200px",
+                    "height": "50px",
+                    "x-pos":100,
+                    "y-pos":300
+                },
+                {
+                    "key":4,
+                    "type":"button",
+                    "defaultValue":"Submit",
+                    "textColor": "#000000",
+                    "fontSize": 12,
+                    "background": "#ffffff",
+                    "borderColor": "#000000",
+                    "BorderThickness": 2,
+                    "BorderRadius": 2,
+                    "width": "180px",
+                    "height": "50px",
+                    "x-pos":100,
+                    "y-pos":400
                 }
-            ]
-        },
-        {
-            "key": 1,
-            "name": "House Repairs",
-            "owner": "Bob Vila",
-            "items": [
-                {
-                    "key": 0,
-                    "description": "Repair Leaky Kitchen Sink",
-                    "due_date": "2019-07-11",
-                    "assigned_to": "Rick",
-                    "completed": true
-                },
-                {
-                    "key": 1,
-                    "description": "Fix Leak in Roof",
-                    "due_date": "2019-10-15",
-                    "assigned_to": "Jane",
-                    "completed": false
-                },
-                {
-                    "key": 2,
-                    "description": "Paint Interior",
-                    "due_date": "2019-11-11",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 3,
-                    "description": "Plant Flowers",
-                    "due_date": "2019-08-17",
-                    "assigned_to": "Ryan",
-                    "completed": true
-                },
-                {
-                    "key": 4,
-                    "description": "Repair Front Door",
-                    "due_date": "2019-10-31",
-                    "assigned_to": "Glenda",
-                    "completed": false
-                }
-            ]
-        },
-        {
-            "key": 2,
-            "name": "Courses to Take",
-            "owner": "Joe Student",
-            "items": [
-                {
-                    "key": 0,
-                    "description": "CSE 114",
-                    "due_date": "2018-12-31",
-                    "assigned_to": "Joe",
-                    "completed": true
-                },
-                {
-                    "key": 1,
-                    "description": "CSE 215",
-                    "due_date": "2018-12-31",
-                    "assigned_to": "Joe",
-                    "completed": true
-                },
-                {
-                    "key": 2,
-                    "description": "AMS 301",
-                    "due_date": "2018-12-31",
-                    "assigned_to": "Joe",
-                    "completed": true
-                },
-                {
-                    "key": 3,
-                    "description": "CSE 214",
-                    "due_date": "2019-05-31",
-                    "assigned_to": "Joe",
-                    "completed": true
-                },
-                {
-                    "key": 4,
-                    "description": "AMS 310",
-                    "due_date": "2019-05-31",
-                    "assigned_to": "Joe",
-                    "completed": true
-                },
-                {
-                    "key": 5,
-                    "description": "CSE 216",
-                    "due_date": "2019-12-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 6,
-                    "description": "CSE 220",
-                    "due_date": "2019-12-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 7,
-                    "description": "CSE 316",
-                    "due_date": "2020-05-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 8,
-                    "description": "CSE 303",
-                    "due_date": "2020-05-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 9,
-                    "description": "CSE 380",
-                    "due_date": "2020-05-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 10,
-                    "description": "CSE 373",
-                    "due_date": "2020-12-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 11,
-                    "description": "CSE 381",
-                    "due_date": "2020-12-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                },
-                {
-                    "key": 12,
-                    "description": "CSE 416",
-                    "due_date": "2020-12-31",
-                    "assigned_to": "Joe",
-                    "completed": false
-                }
-            ]
-        }
-    ]
+                ]
+                    },
+                    {
+                        "key": 1,
+                        "name": "My Homepage",
+                        "email": "me@me.com",
+                        "items": [
+                            {
+                                "key":0,
+                                "type": "container",
+                                "background": "#ffffff",
+                                "borderColor": "#000000",
+                                "BorderThickness": 2,
+                                "BorderRadius": 2,
+                                "width": "900px",
+                                "height": "800px",
+                                "x-pos": 500,
+                                "y-pos":450
+                            },
+                            {
+                                "key":1,
+                                "type":"label",
+                                "defaultValue": "Welcome to my Home Page",
+                                "textColor": "#000000",
+                                "fontSize": 14,
+                                "x-pos":100,
+                                "y-pos":100
+            
+                            },
+                            {
+                                "key":2,
+                                "type":"label",
+                                "defaultValue": "This is the home page for my personal website",
+                                "textColor": "#000000",
+                                "fontSize": 10,
+                                "x-pos":100,
+                                "y-pos": 150
+                            }
+                        ]
+                    },
+                    {
+                        "key": 2,
+                        "name": "CSE316Homepage",
+                        "email": "me@me.com",
+                        "items": [
+                            {
+                                "key":0,
+                                "type": "container",
+                                "background": "#ffffff",
+                                "borderColor": "#000000",
+                                "BorderThickness": 2,
+                                "BorderRadius": 2,
+                                "width": "900px",
+                                "height": "800px",
+                                "x-pos":500,
+                                "y-pos":450
+                            },
+                            {
+                                "key":1,
+                                "type":"label",
+                                "defaultValue": "CSE316Homepage",
+                                "textColor": "#000000",
+                                "fontSize": 14,
+                                "x-pos": 100,
+                                "y-pos": 150
+            
+                            },
+                            {
+                                "key":2,
+                                "type":"button",
+                                "defaultValue":"Submit Project",
+                                "textColor": "#000000",
+                                "fontSize": 12,
+                                "background": "#ffffff",
+                                "borderColor": "#000000",
+                                "BorderThickness": 2,
+                                "BorderRadius": 2,
+                                "width": "180px",
+                                "height": "50px",
+                                "x-pos": 100,
+                                "y-pos": 400
+                            }
+                        ]
+                    }
+                ]
 }
+
+    

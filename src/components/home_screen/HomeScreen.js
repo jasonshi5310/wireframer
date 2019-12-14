@@ -14,28 +14,54 @@ class HomeScreen extends Component {
         const newList = getFirestore().collection("todoLists").doc();
         newList.set({
             name: "unknown",
-            owner: "unknown",
+            email:window.email,
             items: [],
             time: Date.UTC(2077,3,16,19,32,11)
         })
 
+        const uid = firebase.auth().currentUser.uid;
+
         this.props.history.push({
-            pathname: "todoList/"+newList.id,
+            pathname: "/user/"+uid+"/wireframe/"+newList.id,
             key: newList.id
         });
+    }
+
+    deleteList = (event) => {
+        event.stopPropagation();
+        let deleteListDialog = document.getElementById("list_delete_confirmation");
+        deleteListDialog.classList.remove("list_dialog_slide_in");
+        deleteListDialog.classList.add("list_dialog_slide_out");
+        const uid = firebase.auth().currentUser.uid;
+       // this.props.delList();
+        if (window.id !== undefined)
+            getFirestore().collection("todoLists").doc(window.id).delete();
+            window.setTimeout(() => this.props.history.push({
+            pathname: "/user/"+uid,
+        }), 500);
+        window.setTimeout(() => (deleteListDialog.hidden = true), 500);
+
     }
 
     closeDeleteDialog = () => {
         let deleteListDialog = document.getElementById("list_delete_confirmation");
         deleteListDialog.classList.remove("list_dialog_slide_in");
         deleteListDialog.classList.add("list_dialog_slide_out");
-        window.setTimeout(() => (deleteListDialog.hidden = true), 500);
+        window.setTimeout(() => (deleteListDialog.hidden = true), 400);
     }
 
     render() {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
+
+        const uid = firebase.auth().currentUser.uid;
+        window.db.collection("users").doc(uid).get().then(
+            function (doc) {
+                //console.log(doc.data().email);
+                window.email = doc.data().email;
+            }
+        )
 
         return (
             <div className="dashboard container">
@@ -45,7 +71,7 @@ class HomeScreen extends Component {
                     <br/>
                     <p id="list_delete_confirmation_bold">Are you sure you want to delete this diagram?</p>
                     <br/>
-                    <button id="list_delete_confirmation_button_yes" onClick={this.deleteList}
+                    <button id="list_delete_confirmation_button_yes" onClick={(event)=> this.deleteList(event)}
                     >Yes</button>
                     <button id="list_delete_confirmation_button_no" onClick={this.closeDeleteDialog}
                     >No</button>

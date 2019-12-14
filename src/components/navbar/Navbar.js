@@ -5,17 +5,19 @@ import { compose } from 'redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import LoggedInLinks from './LoggedInLinks';
 import LoggedOutLinks from './LoggedOutLinks';
+import firebase from 'firebase/app';
 
 class Navbar extends React.Component {
 
   render() {
     const { auth, profile } = this.props;
     const links = auth.uid ? <LoggedInLinks profile={profile} /> : <LoggedOutLinks />;
-
+    const uid = firebase.auth().currentUser.uid;
+    
     return (
       <nav className="navbarColor">
         <div className="container">
-          <Link to="/" className="brand-logo" className="left"><font color="black">Wireframer!</font></Link>
+          <Link to={"/user/"+uid} className="brand-logo" className="left"><font color="black">Wireframer!</font></Link>
           {links}
         </div>
       </nav>

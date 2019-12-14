@@ -8,50 +8,53 @@ import firebase from 'firebase/app';
 
 
 class WireframeLinks extends React.Component {
+
+
     render() {
-        const wireframeList = document.getElementById('wireframeList');
-        console.log(wireframeList);
+        // const wireframeList = document.getElementById('wireframeList');
+        // console.log(wireframeList);
 
-        function renderLinks(doc, uid) {
-            var showDeleteListDialog = () => {
-                let deleteListDialog = document.getElementById("list_delete_confirmation");
-                deleteListDialog.classList.remove("list_dialog_slide_out");
-                deleteListDialog.classList.add("list_dialog_slide_in");
-                deleteListDialog.hidden = false;
-            }
+        // function renderLinks(doc, uid) {
+        //     var showDeleteListDialog = () => {
+        //         let deleteListDialog = document.getElementById("list_delete_confirmation");
+        //         deleteListDialog.classList.remove("list_dialog_slide_out");
+        //         deleteListDialog.classList.add("list_dialog_slide_in");
+        //         deleteListDialog.hidden = false;
+        //     }
 
-            if (wireframeList === null)
-                return;
-            let li = document.createElement("div");
-            let name = document.createElement("a");
-            let x = document.createElement("span");
+        //     if (wireframeList === null)
+        //         return;
+        //     let li = document.createElement("div");
+        //     let name = document.createElement("a");
+        //     let x = document.createElement("span");
 
 
-            x.textContent = 'X';
-            x.classList.add("right");
-            x.addEventListener("click", showDeleteListDialog)
-            name.title = doc;
-            name.appendChild(document.createTextNode(doc));
-            name.classList.add("blueUS");
-            name.href = '/user/'+uid+'/wireframe/'+doc;
+        //     x.textContent = 'X';
+        //     x.classList.add("right");
+        //     x.addEventListener("click", showDeleteListDialog)
+        //     name.title = doc;
+        //     name.appendChild(document.createTextNode(doc));
+        //     name.classList.add("blueUS");
+        //     name.href = '/user/'+uid+'/wireframe/'+doc;
 
-            li.appendChild(name);
-            li.appendChild(x);
+        //     li.appendChild(name);
+        //     li.appendChild(x);
             
-            wireframeList.appendChild(li);
+        //     wireframeList.appendChild(li);
 
-           // console.log(index+": "+doc)
+        //    // console.log(index+": "+doc)
 
-        }
+        // }
 
-        const uid = firebase.auth().currentUser.uid;
-        //console.log("uid:"+uid)
-        window.db.collection("users").doc(uid).get().then((doc)=> {
-            doc.data().wireframes.forEach(element => {
-                //console.log(element.name);
-                renderLinks(element.name, uid);
-            });
-        });
+        // const uid = firebase.auth().currentUser.uid;
+        // //console.log("uid:"+uid)
+        // window.db.collection("users").doc(uid).get().then((doc)=> {
+        //     doc.data().wireframes.forEach(element => {
+        //         //console.log(element.name);
+        //         console.log(element.id);
+        //         renderLinks(element.name, uid);
+        //     });
+        // });
         //console.log(this.props.wireframes);
         // return (
         //     <div className="todo-lists section">
@@ -65,8 +68,27 @@ class WireframeLinks extends React.Component {
         //         ))}
         //     </div>
         // );
+        let todoLists;
+        if (this.props.todoLists!== undefined)
+        {
+            todoLists = this.props.todoLists.filter(
+                function (list) {
+                    return list.email === window.email;
+                }
+            )
+        }
+        const uid = firebase.auth().currentUser.uid;
         return (
-            <div></div>
+            <div className="todo-lists section">
+                {todoLists && todoLists.map(todoList => (
+                    <div>
+                    <Link to={'/user/'+uid+'/wireframe/' + todoList.id} key={todoList.id}>
+                        <WireframeCard todoList={todoList} id={todoList.id} />
+                    </Link>
+                   
+                    </div>
+                ))}
+            </div>
         );
     }
 }

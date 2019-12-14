@@ -233,10 +233,23 @@ font-size: 16pt;
 .right
 {
   float: right;
+  color: black;
 }
 
 .blueUS
 {
   color: blue;
   text-decoration: underline;
+  font-size: medium;
+}
+
+.btn-small {
+  height: 24px;
+  line-height: 24px;
+  padding: 0 0.5rem;
+}
+
+.row
+{
+  padding: 0;
 }

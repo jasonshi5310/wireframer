@@ -5,6 +5,7 @@ import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
+import {Button} from 'react-materialize'
 
 class ListScreen extends Component {
     state = {
@@ -79,7 +80,7 @@ class ListScreen extends Component {
     render() {
         const auth = this.props.auth;
         const todoList = this.props.todoList;
-        
+
         if (!auth.uid) {
             return <Redirect to="/" />;
         }
@@ -96,7 +97,15 @@ class ListScreen extends Component {
         // }
         return (
             <div className="row">
-                <div className="col s2">fun</div>
+                <div className="col s2">
+                <span>
+                    <i className="material-icons">zoom_in</i>
+                    <i className="material-icons">zoom_out</i>
+                    <Button className="btn-small">Save</Button>
+                    <Button className="btn-small">Close</Button>
+
+                </span>
+                </div>
                 <div className='col s8'>diagram</div>
                 <div className='col s2'>property</div>
 
