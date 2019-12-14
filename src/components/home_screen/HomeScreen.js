@@ -25,25 +25,40 @@ class HomeScreen extends Component {
         });
     }
 
+    closeDeleteDialog = () => {
+        let deleteListDialog = document.getElementById("list_delete_confirmation");
+        deleteListDialog.classList.remove("list_dialog_slide_in");
+        deleteListDialog.classList.add("list_dialog_slide_out");
+        window.setTimeout(() => (deleteListDialog.hidden = true), 500);
+    }
+
     render() {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
-        console.log("uid:"+firebase.auth().currentUser.uid)
-        // console.log("ID"+window.userID);
-        // const wireframes = window.wireframes;
-        // Object.keys(wireframes).map(function(key) {
-        //     console.log(wireframes[key])
-        //   });
 
         return (
             <div className="dashboard container">
+                <div id="list_delete_confirmation" hidden>
+                    <div id="list_delete_confirmation_content">
+                    <p className="list_delete_confirmation_message">Delete the diagram?</p>
+                    <br/>
+                    <p id="list_delete_confirmation_bold">Are you sure you want to delete this diagram?</p>
+                    <br/>
+                    <button id="list_delete_confirmation_button_yes" onClick={this.deleteList}
+                    >Yes</button>
+                    <button id="list_delete_confirmation_button_no" onClick={this.closeDeleteDialog}
+                    >No</button>
+                    <br/>
+                    <p className="list_delete_confirmation_message">The diagram will not be retreivable.</p>
+                </div>
+                </div>
                 <div className="row">
-                    <div className="col s12 m4">
+                    <div className="col s12 m4" id="wireframeList">
                         <br></br>
                         <br></br>
                     <h5>Recent Work</h5>
-                        <WireframeLinks wireframes={window.wireframes}></WireframeLinks>
+                        <WireframeLinks></WireframeLinks>
                     </div>
 
                     <div className="col s8" style={{textAlign:"center"}}>

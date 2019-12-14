@@ -229,3 +229,14 @@ font-size: 16pt;
   height: 400px;
   width: 100%;
 }
+
+.right
+{
+  float: right;
+}
+
+.blueUS
+{
+  color: blue;
+  text-decoration: underline;
+}
