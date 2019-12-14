@@ -97,18 +97,46 @@ class ListScreen extends Component {
         // }
         return (
             <div className="row">
-                <div className="col s2">
+                <div className="col s2 grey lighten-2">
                 <span>
                     <i className="material-icons">zoom_in</i>
                     <i className="material-icons">zoom_out</i>
                     <Button className="btn-small">Save</Button>
                     <Button className="btn-small">Close</Button>
-
                 </span>
+                <br></br>
+                <br></br>
+                <textarea className="white"rows="4" cols="50" disabled></textarea>
+                <br></br>
+                <br></br>
+                <div style={{textAlign:"center"}}>Container</div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <div style={{textAlign:"center"}}>Prompt for Input:</div>
+                <div style={{textAlign:"center"}}>Label</div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <div style={{textAlign:"center"}}>
+                    <button style={{textAlign:"center"}}>Submit</button>
+                </div>
+                <br></br>
+                <div style={{textAlign:"center"}}>Button</div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <div className="input-field">
+                    <label style={{color:"darkgrey"}}>Input</label>
+                    <input disabled/>
+                </div> 
+                <div style={{textAlign:"center"}}>Textfield</div>
+                <br></br>
+                <br></br>
+                <br></br>
                 </div>
                 <div className='col s8'>diagram</div>
                 <div className='col s2'>property</div>
-
             </div>
         )
     }
