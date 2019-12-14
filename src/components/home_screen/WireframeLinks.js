@@ -12,7 +12,7 @@ class WireframeLinks extends React.Component {
         const wireframeList = document.getElementById('wireframeList');
         console.log(wireframeList);
 
-        function renderLinks(doc) {
+        function renderLinks(doc, uid) {
             var showDeleteListDialog = () => {
                 let deleteListDialog = document.getElementById("list_delete_confirmation");
                 deleteListDialog.classList.remove("list_dialog_slide_out");
@@ -20,21 +20,27 @@ class WireframeLinks extends React.Component {
                 deleteListDialog.hidden = false;
             }
 
+            if (wireframeList === null)
+                return;
             let li = document.createElement("div");
-            let name = document.createElement("span");
+            let name = document.createElement("a");
             let x = document.createElement("span");
+
 
             x.textContent = 'X';
             x.classList.add("right");
             x.addEventListener("click", showDeleteListDialog)
-            name.textContent = doc;
+            name.title = doc;
+            name.appendChild(document.createTextNode(doc));
             name.classList.add("blueUS");
+            name.href = '/user/'+uid+'/wireframe/'+doc;
 
             li.appendChild(name);
             li.appendChild(x);
+            
+            wireframeList.appendChild(li);
 
-            if (wireframeList!== null)
-                wireframeList.appendChild(li);
+           // console.log(index+": "+doc)
 
         }
 
@@ -43,7 +49,7 @@ class WireframeLinks extends React.Component {
         window.db.collection("users").doc(uid).get().then((doc)=> {
             doc.data().wireframes.forEach(element => {
                 //console.log(element.name);
-                renderLinks(element.name);
+                renderLinks(element.name, uid);
             });
         });
         //console.log(this.props.wireframes);

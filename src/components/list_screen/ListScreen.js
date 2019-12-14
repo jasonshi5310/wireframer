@@ -79,51 +79,29 @@ class ListScreen extends Component {
     render() {
         const auth = this.props.auth;
         const todoList = this.props.todoList;
-
+        
         if (!auth.uid) {
             return <Redirect to="/" />;
         }
-        if(!todoList){
-	        return <React.Fragment />
-        }
-        if (!this.state.ifClicked){
-            this.setNewTime(todoList);
-            this.initialBooleans();
-            this.setState(state => ({
-                ...state,
-                ifClicked: true,
-            }));
-        }
+        // if(!todoList){
+	    //     return <React.Fragment />
+        // }
+        // if (!this.state.ifClicked){
+        //     this.setNewTime(todoList);
+        //     this.initialBooleans();
+        //     this.setState(state => ({
+        //         ...state,
+        //         ifClicked: true,
+        //     }));
+        // }
         return (
-            <div className="container white">
-                <h5 className="grey-text text-darken-3">Todo List</h5>
-                <div id="list_trash" style={{top:"10%"}} onClick={this.showDeleteListDialog}>&#128465;</div>
-                <div className="input-field">
-                    <label htmlFor="email" className="active">Name</label>
-                    <input className="active" type="text" name="name" id="name" onChange={this.handleNameChange} defaultValue={todoList.name} />
-                </div>
-                <div className="input-field">
-                    <label htmlFor="password" className="active">Owner</label>
-                    <input className="active" type="text" name="owner" id="owner" onChange={this.handleOwnerChange} defaultValue={todoList.owner} />
-                </div>
+            <div className="row">
+                <div className="col s2">fun</div>
+                <div className='col s8'>diagram</div>
+                <div className='col s2'>property</div>
 
-                <div className="list_item_header_card">
-                <div className="list_item_task_header"
-                onClick={() =>this.sortItems("task",this.props.todoList.id)}
-                >
-                    Task</div>
-                <div className="list_item_due_date_header"
-                onClick={() =>this.sortItems("due_date", this.props.todoList.id)}
-                >
-                    Due Date</div>
-                <div className="list_item_status_header"
-                onClick={() => this.sortItems("status", this.props.todoList.id)}
-                >
-                    Status</div>
-                </div>
-                {/* <ItemsList todoList={todoList} history={this.props.history}/> */}
             </div>
-        );
+        )
     }
 }
 

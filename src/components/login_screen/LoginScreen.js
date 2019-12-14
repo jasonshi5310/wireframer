@@ -34,8 +34,6 @@ class LoginScreen extends Component {
       credentials,
     };
     props.login(authData);
-    window.email = state.email;
-    console.log(window.email);
   }
 
   render() {
@@ -45,7 +43,6 @@ class LoginScreen extends Component {
     }
 
     return (
-      
         <div className="row">
           <form onSubmit={this.handleSubmit} className="col s4">
             <h5 className="black-text">Login</h5>
