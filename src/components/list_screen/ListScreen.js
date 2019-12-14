@@ -97,7 +97,7 @@ class ListScreen extends Component {
         // }
         return (
             <div className="row">
-                <div className="col s2 grey lighten-2">
+                <div className="col s2 grey lighten-2" style={{height:'650px'}}>
                 <span>
                     <i className="material-icons">zoom_in</i>
                     <i className="material-icons">zoom_out</i>
@@ -135,8 +135,48 @@ class ListScreen extends Component {
                 <br></br>
                 <br></br>
                 </div>
-                <div className='col s8'>diagram</div>
-                <div className='col s2'>property</div>
+
+                <div className='col s8' style={{height:'650px'}}>
+                    <div id="canvas" style={{height:'650px',width: '100%', border:"solid"}}></div>
+                </div>
+
+                <div className='col s2 grey lighten-2' style={{height:'650px'}}>
+                <div style={{textAlign:"center"}}>Properties</div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <div className="input-field">
+                    <label style={{color:"darkgrey"}}>text</label>
+                    <input disabled/>
+                </div>
+                <br></br>
+                <span>
+                    <span>Background: </span>
+                    <input id="background" name="Color Picker" type="color" disabled/>
+                </span>
+                <br></br>
+                <br></br>
+                <span>
+                    <span>Border Color: </span>
+                    <input id="borderColor" name="Color Picker" type="color" disabled/>
+                </span>
+                <br></br>
+                <br></br>
+                <br></br>
+                <span><span>Border Thickness: </span>
+                <div className="input-field">
+                    <input id="borderThickness" disabled/>
+                </div>
+                </span>
+                <br></br>
+                <span><span>Border Radius: </span>
+                <div className="input-field">
+                    <input id="borderRadius" disabled/>
+                </div>
+                </span>
+                <br></br>
+                <br></br>
+                </div>
             </div>
         )
     }
