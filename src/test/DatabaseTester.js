@@ -26,6 +26,8 @@ class DatabaseTester extends React.Component {
                     name: todoListJson.name,
                     email: todoListJson.email,
                     items: todoListJson.items,
+                    width: todoListJson.width,
+                    height: todoListJson.height,
                     time: Date.now()
                 }).then(() => {
                     console.log("DATABASE RESET");
