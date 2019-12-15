@@ -578,6 +578,9 @@ class ListScreen extends Component {
             borderRadius.disabled = true;
             borderColor.disabled = true;
 
+            let a = this.state.scale;
+            this.setState({...this.state, scale:a});
+
     }
 
     keyDownEvent = (event) => 
@@ -657,6 +660,19 @@ class ListScreen extends Component {
     zoomOut = () => 
     {
         console.log("zoomOut");
+    }
+
+    isHidden = (index) => {
+        if (window.currentIndex===index)
+            return false;
+        return true;
+    }
+
+    select = (event) =>
+    {
+        event.stopPropagation();
+        let a = this.state.scale;
+        this.setState({...this.state, scale:a});
     }
 
 
@@ -751,7 +767,7 @@ class ListScreen extends Component {
                                 width: item.width,
                                 height: item.height,
                               }}
-                              onClick={(event)=> event.stopPropagation()}
+                              onClick={(event)=> this.select(event)}
                               onDragStop={(event, d) => this.rePos(event,d,index)}
                               onResizeStop={(e, direction, ref, delta, position) => {
                                   this.reSize(e, direction, ref, delta, position, index)
@@ -764,13 +780,13 @@ class ListScreen extends Component {
                               minWidth = {30}
                               
                             >
-                            <div class="" style={{position: 'absolute', border:'solid',
+                            <div class="" hidden={this.isHidden(index)} style={{position: 'absolute', border:'solid',
                                   width: '20px', height: '20px', left: '-10px', top: '-10px', cursor: 'nw-resize'}}></div>
-                             <div class="" style={{position: 'absolute', border:'solid',
+                             <div class="" hidden={this.isHidden(index)} style={{position: 'absolute', border:'solid',
                                   width: '20px', height: '20px', right: '-10px', top: '-10px', cursor: 'nw-resize'}}></div>
-                             <div class="" style={{position: 'absolute', border:'solid',
+                             <div class="" hidden={this.isHidden(index)} style={{position: 'absolute', border:'solid',
                                   width: '20px', height: '20px', left: '-10px', bottom: '-10px', cursor: 'nw-resize'}}></div>
-                             <div class="" style={{position: 'absolute', border:'solid',
+                             <div class="" hidden={this.isHidden(index)} style={{position: 'absolute', border:'solid',
                                   width: '20px', height: '20px', right: '-10px', bottom: '-10px', cursor: 'nw-resize'}}></div>
                             {this.renderElement(item)}
                             </Rnd>
