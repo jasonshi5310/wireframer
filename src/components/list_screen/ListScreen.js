@@ -16,6 +16,7 @@ class ListScreen extends Component {
         item: null,
         isSaved: true,
         ifClicked: false,
+        scale: 1,
     }
 
 
@@ -248,7 +249,7 @@ class ListScreen extends Component {
         else if (item.type === 'label')
         {
             console.log(item.defaultValue+item.borderColor);
-            return (<span
+            return (<div
             style = {{
                 width: '100%',
                 height:'100%',
@@ -258,7 +259,8 @@ class ListScreen extends Component {
                 borderColor: item.borderColor,
                 background: item.background
         }}
-            ><span style={{color:item.fontColor,  fontSize:item.fontSize}}>{item.defaultValue}</span></span>)
+            ><div style={{                width: '100%',
+            height:'100%',color:item.fontColor,  fontSize:item.fontSize}}>{item.defaultValue}</div></div>)
         }
         else if (item.type === 'container')
         {
@@ -310,9 +312,10 @@ class ListScreen extends Component {
                 ...this.state,
                 
                 items:items,isSaved: false});
+            document.getElementById("save").disabled = false;
         }
         //console.log(item);
-        document.getElementById("save").disabled = false;
+        //document.getElementById("save").disabled = false;
         this.loadInfo();
     }
 
@@ -577,29 +580,83 @@ class ListScreen extends Component {
 
     }
 
-    keyUpEvent = (event) => 
+    keyDownEvent = (event) => 
     {
-        //event.preventDefault()
+        event.preventDefault()
         if (window.currentIndex!==-1)
         {
             //event.preventDefault()
-            if (event.ctrlKey && event.keyCode === 'D')
+            console.log(event.keyCode);
+            if (event.ctrlKey && event.keyCode === 68)
             {
                 //event.preventDefault()
                 let item = this.state.items[window.currentIndex];
-                console.log("D");
+                let items = this.state.items;
+                //console.log(items.length);
+                let DupItem;
+                if (item.type!=='container')
+                {
+                    DupItem = {
+                        "key": items.length,
+                        "type": item.type,
+                        "background": item.background,
+                        "borderColor": item.borderColor,
+                        "borderThickness": item.borderThickness,
+                        "borderRadius": item.borderRadius,
+                        "width": item.width,
+                        "height": item.height,
+                        'defaultValue': item.defaultValue,
+                        "fontColor": item.fontColor,
+                        "fontSize":  item.fontSize,
+                        "x": Number(item.x)+100,
+                        "y": Number(item.y)+100
+                    };
+                }
+                else 
+                {
+                    DupItem = {
+                        "key": items.length,
+                        "type": item.type,
+                        "background": item.background,
+                        "borderColor": item.borderColor,
+                        "borderThickness": item.borderThickness,
+                        "borderRadius": item.borderRadius,
+                        "width": item.width,
+                        "height": item.height,
+                        "x": Number(item.x)+100,
+                        "y": Number(item.y)+100
+                    };
+                }
+                items.push(DupItem);
+                this.setState({
+                    ...this.state,
+                    items:items, 
+                    isSaved: false});
+
+                console.log("D+ss");
+                document.getElementById("save").disabled = false;
             }
             else if (event.keyCode === 46)
             {
                 console.log("delete");
                 let items = this.state.items;
                 items.splice(window.currentIndex, 1);
-                this.setState({...this.state, items:items});
+                this.setState({...this.state, items:items, isSaved:false});
                 this.unselect();
+                document.getElementById("save").disabled = false;
             }
         }
         else
-            console.log("Error");
+            console.log("KeyDownError");
+    }
+
+    zoomIn = () => {
+        console.log("zoomIn");
+    }
+
+    zoomOut = () => 
+    {
+        console.log("zoomOut");
     }
 
 
@@ -622,10 +679,8 @@ class ListScreen extends Component {
                 name: todoList.name,
                 items: todoList.items,
                 ifClicked: true,
-            }));
-            //window.addEventListener('keyup', (event)=> event.preventDefault());
-            window.addEventListener('keyup', this.keyUpEvent);
-            
+                isSaved: true
+            }));            
         }
 
         return (
@@ -647,9 +702,9 @@ class ListScreen extends Component {
 
                 <div className="col s2 grey lighten-2" style={{height:'650px'}}>
                 <span> 
-                    <i className="material-icons">zoom_in</i>
-                    <i className="material-icons">zoom_out</i>
-                    <Button id="save"className="btn-small" onClick={this.saveWorks}>Save</Button>
+                    <i className="material-icons" onClick={this.zoomIn}>zoom_in</i>
+                    <i className="material-icons" onClick={this.zoomOut}>zoom_out</i>
+                    <Button id="save"className="btn-small" onClick={this.saveWorks} disabled={this.state.isSaved}>Save</Button>
                     <Button id="close" className="btn-small" onClick={this.closeWorks}>Close</Button>
                 </span>
                 <div className="input-field">
@@ -658,18 +713,15 @@ class ListScreen extends Component {
                     defaultValue={todoList.name}/>
                 </div> 
                 <br></br>
-                <br></br>
                 <div className="white" style={{width:"100%", height:"50px", border:'solid'}}
                 onClick={this.addContainer}></div>
                 <br></br>
                 <div style={{textAlign:"center"}}>Container</div>
                 <br></br>
-                <br></br>
                 <div style={{textAlign:"center"}}
                 onClick={this.addLabel}
                 >Prompt for Input:</div>
                 <div style={{textAlign:"center"}}>Label</div>
-                <br></br>
                 <br></br>
                 <div style={{textAlign:"center"}}>
                     <button style={{textAlign:"center"}} onClick={this.addButton}>Submit</button>
@@ -677,20 +729,17 @@ class ListScreen extends Component {
                 <br></br>
                 <div style={{textAlign:"center"}}>Button</div>
                 <br></br>
-                <br></br>
-                <div className="input-field" onClick={this.addTextfield}>
+                <div className="input-field" style={{border:'solid'}} onClick={this.addTextfield}>
                     <label style={{color:"darkgrey"}}>Input</label>
                     <input disabled/>
                 </div> 
                 <div style={{textAlign:"center"}}>Textfield</div>
                 <br></br>
-                <br></br>
-                <br></br>
                 </div>
 
                 <div className='col s8' style={{height:'650px'}}>
-                    <div id="canvas" style={{height:'650px',width: '100%', border:"solid"}}
-                     onClick={()=> this.unselect()}
+                    <div id="canvas" style={{height:'650px',width: '100%', border:"solid"}} tabIndex='0'
+                     onClick={()=> this.unselect()} onKeyDown={(e)=>this.keyDownEvent(e)}
                     >
                     {this.state.items.map((item) => {
                         let index = this.state.items.indexOf(item);
@@ -707,12 +756,23 @@ class ListScreen extends Component {
                               onResizeStop={(e, direction, ref, delta, position) => {
                                   this.reSize(e, direction, ref, delta, position, index)
                               }}
+                              scale={this.state.scale}
+                              enableResizing={{top:false, bottom:false, left:false,right:false
+                            , topLeft:true, topRight:true, bottomLeft:true, bottomRight:true}}
                               bounds = "#canvas"
                               minHeight = {30}
                               minWidth = {30}
                               
                             >
-                                {this.renderElement(item)}
+                            <div class="" style={{position: 'absolute', border:'solid',
+                                  width: '20px', height: '20px', left: '-10px', top: '-10px', cursor: 'nw-resize'}}></div>
+                             <div class="" style={{position: 'absolute', border:'solid',
+                                  width: '20px', height: '20px', right: '-10px', top: '-10px', cursor: 'nw-resize'}}></div>
+                             <div class="" style={{position: 'absolute', border:'solid',
+                                  width: '20px', height: '20px', left: '-10px', bottom: '-10px', cursor: 'nw-resize'}}></div>
+                             <div class="" style={{position: 'absolute', border:'solid',
+                                  width: '20px', height: '20px', right: '-10px', bottom: '-10px', cursor: 'nw-resize'}}></div>
+                            {this.renderElement(item)}
                             </Rnd>
                          )
                         ;})
