@@ -655,11 +655,18 @@ class ListScreen extends Component {
 
     zoomIn = () => {
         console.log("zoomIn");
+        let scale = Number(this.state.scale);
+        scale = scale * 2;
+        this.setState({...this.state, scale:scale});
+
     }
 
     zoomOut = () => 
     {
         console.log("zoomOut");
+        let scale = Number(this.state.scale);
+        scale = scale / 2;
+        this.setState({...this.state, scale:scale});
     }
 
     isHidden = (index) => {
@@ -754,9 +761,11 @@ class ListScreen extends Component {
                 </div>
 
                 <div className='col s8' style={{height:'650px'}}>
-                    <div id="canvas" style={{height:'650px',width: '100%', border:"solid"}} tabIndex='0'
+                    <div id="canvas" style={{height:'650px',width: '100%', border:"solid",overflow: 'scroll'
+                    }} tabIndex='0'
                      onClick={()=> this.unselect()} onKeyDown={(e)=>this.keyDownEvent(e)}
                     >
+                        <div style={{transform: 'scale('+this.state.scale+')'}}>
                     {this.state.items.map((item) => {
                         let index = this.state.items.indexOf(item);
                         return (
@@ -772,7 +781,6 @@ class ListScreen extends Component {
                               onResizeStop={(e, direction, ref, delta, position) => {
                                   this.reSize(e, direction, ref, delta, position, index)
                               }}
-                              scale={this.state.scale}
                               enableResizing={{top:false, bottom:false, left:false,right:false
                             , topLeft:true, topRight:true, bottomLeft:true, bottomRight:true}}
                               bounds = "#canvas"
@@ -793,6 +801,7 @@ class ListScreen extends Component {
                          )
                         ;})
                         }
+                        </div>
                     </div>
                 </div>
 
