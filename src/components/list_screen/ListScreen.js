@@ -99,8 +99,8 @@ class ListScreen extends Component {
             "type": "container",
             "background": "#ffffff",
             "borderColor": "#000000",
-            "borderThickness": "solid",
-            "borderRadius": 2,
+            "borderThickness": "2px solid",
+            "borderRadius": 0,
             "width": "200px",
             "height": "50px",
             "x":0,
@@ -127,11 +127,11 @@ class ListScreen extends Component {
             "background": "#ffffff",
             "borderColor": "#000000",
             "borderThickness": 0,
-            "borderRadius": 2,
+            "borderRadius": 0,
             "width": "150px",
             "height": "50px",
             "fontColor": "#000000",
-            "fontSize":  "12",
+            "fontSize":  "12px",
             "x":0,
             "y":0
         };
@@ -140,6 +140,7 @@ class ListScreen extends Component {
             ...this.state,
             items:items, 
             isSaved: false});
+        document.getElementById("save").disabled = false;
     }
 
     addButton = () => {
@@ -153,12 +154,12 @@ class ListScreen extends Component {
             "defaultValue": 'Submit',
             "background": "#ffffff",
             "borderColor": "#000000",
-            "borderThickness": "solid",
-            "borderRadius": 2,
+            "borderThickness": "2px solid",
+            "borderRadius": 0,
             "width": "90px",
             "height": "30px",
             "fontColor": "#000000",
-            "fontSize":  "12",
+            "fontSize":  "12px",
             "x":0,
             "y":0
         };
@@ -167,6 +168,7 @@ class ListScreen extends Component {
             ...this.state,
             items:items, 
             isSaved: false});
+        document.getElementById("save").disabled = false;
     }
 
     addTextfield = () => {
@@ -180,12 +182,12 @@ class ListScreen extends Component {
             "background": "#ffffff",
             "borderColor": "#000000",
             "borderThickness": 0,
-            "borderRadius": 2,
+            "borderRadius": 0,
             "width": "150px",
             "height": "50px",
             'defaultValue':"Input",
             "fontColor": "#808080",
-            "fontSize":  "12",
+            "fontSize":  "12px",
             "x":0,
             "y":0
         };
@@ -194,6 +196,7 @@ class ListScreen extends Component {
             ...this.state,
             items:items, 
             isSaved: false});
+        document.getElementById("save").disabled = false;
     }
 
     closeDeleteDialog = () => {
@@ -223,9 +226,10 @@ class ListScreen extends Component {
                 style = {{
                 width: '100%',
                 height:'100%',
-                borderColor: item.borderColor,
-                border:item.borderThickness,
+                border:"solid",
+                borderWidth:item.borderThickness,
                 borderRadius:item.borderRadius,
+                borderColor: item.borderColor,
                 background: item.background,
                 }}>
             <span style={{color:item.fontColor, fontSize:item.fontSize}}>{item.defaultValue}</span>
@@ -240,14 +244,13 @@ class ListScreen extends Component {
             style = {{
                 width: '100%',
                 height:'100%',
-                borderColor: item.borderColor,
-                border:item.borderThickness,
+                border:"solid",
+                borderWidth:item.borderThickness,
                 borderRadius:item.borderRadius,
-                background: item.background,
-                //color:item.fontColor,
-                fontSize:item.fontSize
+                borderColor: item.borderColor,
+                background: item.background
         }}
-            ><span style={{color:item.fontColor}}>{item.defaultValue}</span></span>)
+            ><span style={{color:item.fontColor,  fontSize:item.fontSize}}>{item.defaultValue}</span></span>)
         }
         else if (item.type === 'container')
         {
@@ -255,9 +258,10 @@ class ListScreen extends Component {
             style = {{
                 width: '100%',
                 height: '100%',
-                borderColor: item.borderColor,
-                border:item.borderThickness,
+                border:"solid",
+                borderWidth:item.borderThickness,
                 borderRadius:item.borderRadius,
+                borderColor: item.borderColor,
                 background: item.background,
         }}
             ></div>)
@@ -269,14 +273,13 @@ class ListScreen extends Component {
             style = {{
                 width: '100%',
                 height : '100%',
-                borderColor: item.borderColor,
-                border:item.borderThickness,
+                border:"solid",
+                borderWidth:item.borderThickness,
                 borderRadius:item.borderRadius,
-                background: item.background,
-                //color:"green",//item.fontColor,
-                fontSize:item.fontSize
+                borderColor: item.borderColor,
+                background: item.background
             }}
-            ><label style={{color: item.fontColor}}>{item.defaultValue}</label></button>)
+            ><label style={{color: item.fontColor,fontSize:item.fontSize}}>{item.defaultValue}</label></button>)
         }
         return (<div>Error</div>)
     }
@@ -300,6 +303,7 @@ class ListScreen extends Component {
                 items:items,isSaved: false});
         }
         //console.log(item);
+        document.getElementById("save").disabled = false;
         this.loadInfo();
     }
 
@@ -311,6 +315,7 @@ class ListScreen extends Component {
         item.defaultValue = value;
         items[window.currentIndex]=item;
         this.setState({...this.state,items:items,isSaved:false});
+        document.getElementById("save").disabled = false;
     }
 
 
@@ -324,6 +329,7 @@ class ListScreen extends Component {
         items[window.currentIndex]=item;
         this.setState({...this.state,items:items,isSaved:false});
         console.log(value);
+        document.getElementById("save").disabled = false;
     }
 
     handleFontColorChange = (e) => {
@@ -333,6 +339,7 @@ class ListScreen extends Component {
         item.fontColor = value;
         items[window.currentIndex]=item;
         this.setState({...this.state,items:items,isSaved:false});
+        document.getElementById("save").disabled = false;
         console.log(value);
     }
 
@@ -344,6 +351,7 @@ class ListScreen extends Component {
         item.fontSize = value;
         items[window.currentIndex]=item;
         this.setState({...this.state,items:items,isSaved:false});
+        document.getElementById("save").disabled = false;
         
     }
 
@@ -355,6 +363,7 @@ class ListScreen extends Component {
         item.borderRadius = value;
         items[window.currentIndex]=item;
         this.setState({...this.state,items:items,isSaved:false});
+        document.getElementById("save").disabled = false;
     }
 
     handleBorderThicknessChange = (e) =>
@@ -365,6 +374,7 @@ class ListScreen extends Component {
         item.borderThickness = value;
         items[window.currentIndex]=item;
         this.setState({...this.state,items:items,isSaved:false});
+        document.getElementById("save").disabled = false;
     }
 
     handleBorderColorChange = (e) =>
@@ -375,6 +385,7 @@ class ListScreen extends Component {
         item.borderColor = value;
         items[window.currentIndex]=item;
         this.setState({...this.state,items:items,isSaved:false});
+        document.getElementById("save").disabled = false;
         console.log(value);
     }
 
@@ -488,6 +499,9 @@ class ListScreen extends Component {
             borderColor.disabled = false;
 
             //load values
+            text.value = ''; 
+            fontColor.value = '';
+            fontSize.value = '';
             background.value = item.background;
             borderThickness.value = item.borderThickness;
             borderRadius.value = item.borderRadius;
@@ -518,6 +532,7 @@ class ListScreen extends Component {
                 items:items,isSaved: false});
         }
         //console.log(item);
+        document.getElementById("save").disabled = false;
         this.loadInfo();
 
     }
@@ -654,6 +669,7 @@ class ListScreen extends Component {
                               bounds = "#canvas"
                               minHeight = {30}
                               minWidth = {30}
+                              
                             >
                                 {this.renderElement(item)}
                             </Rnd>
