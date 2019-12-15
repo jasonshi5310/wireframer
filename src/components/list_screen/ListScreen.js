@@ -63,7 +63,8 @@ class ListScreen extends Component {
             getFirestore().collection("todoLists").doc(listID).update({
                 items:this.state.items
             })
-            this.setState({isSaved:true});
+            this.setState({...this.state,
+                isSaved:true});
         }
         document.getElementById("save").disabled = true;
         
@@ -96,8 +97,8 @@ class ListScreen extends Component {
         {
             "key": items.length,
             "type": "container",
-            "background": "white",
-            "borderColor": "black",
+            "background": "#ffffff",
+            "borderColor": "#000000",
             "borderThickness": "solid",
             "borderRadius": 2,
             "width": "200px",
@@ -106,7 +107,9 @@ class ListScreen extends Component {
             "y":0
         };
         items.push(item);
-        this.setState({items:items, 
+        this.setState({
+            ...this.state,
+            items:items, 
             isSaved: false
         });
         document.getElementById("save").disabled = false;
@@ -121,19 +124,21 @@ class ListScreen extends Component {
             "key": items.length,
             "type": "label",
             "defaultValue": 'Prompt for Input',
-            "background": "white",
-            "borderColor": "black",
+            "background": "#ffffff",
+            "borderColor": "#000000",
             "borderThickness": 0,
             "borderRadius": 2,
             "width": "150px",
             "height": "50px",
-            "fontColor": "black",
+            "fontColor": "#000000",
             "fontSize":  "12",
             "x":0,
             "y":0
         };
         items.push(item);
-        this.setState({items:items, 
+        this.setState({
+            ...this.state,
+            items:items, 
             isSaved: false});
     }
 
@@ -146,19 +151,21 @@ class ListScreen extends Component {
             "key": items.length,
             "type": "button",
             "defaultValue": 'Submit',
-            "background": "white",
-            "borderColor": "black",
+            "background": "#ffffff",
+            "borderColor": "#000000",
             "borderThickness": "solid",
             "borderRadius": 2,
             "width": "90px",
             "height": "30px",
-            "fontColor": "black",
+            "fontColor": "#000000",
             "fontSize":  "12",
             "x":0,
             "y":0
         };
         items.push(item);
-        this.setState({items:items, 
+        this.setState({
+            ...this.state,
+            items:items, 
             isSaved: false});
     }
 
@@ -170,20 +177,22 @@ class ListScreen extends Component {
         {
             "key": items.length,
             "type": "textfield",
-            "background": "white",
-            "borderColor": "black",
+            "background": "#ffffff",
+            "borderColor": "#000000",
             "borderThickness": 0,
             "borderRadius": 2,
             "width": "150px",
             "height": "50px",
             'defaultValue':"Input",
-            "fontColor": "grey",
+            "fontColor": "#808080",
             "fontSize":  "12",
             "x":0,
             "y":0
         };
         items.push(item);
-        this.setState({items:items, 
+        this.setState({
+            ...this.state,
+            items:items, 
             isSaved: false});
     }
 
@@ -219,14 +228,15 @@ class ListScreen extends Component {
                 borderRadius:item.borderRadius,
                 background: item.background,
                 }}>
-            <label style={{color:item.fontColor, fontSize:item.fontSize}}>{item.defaultValue}</label>
+            <span style={{color:item.fontColor, fontSize:item.fontSize}}>{item.defaultValue}</span>
             <input disabled/>
             </div> 
             )
         }
         else if (item.type === 'label')
         {
-            return (<label
+            console.log(item.defaultValue+item.borderColor);
+            return (<span
             style = {{
                 width: '100%',
                 height:'100%',
@@ -234,10 +244,10 @@ class ListScreen extends Component {
                 border:item.borderThickness,
                 borderRadius:item.borderRadius,
                 background: item.background,
-                color:item.fontColor,
+                //color:item.fontColor,
                 fontSize:item.fontSize
         }}
-            >{item.defaultValue}</label>)
+            ><span style={{color:item.fontColor}}>{item.defaultValue}</span></span>)
         }
         else if (item.type === 'container')
         {
@@ -254,6 +264,7 @@ class ListScreen extends Component {
         }
         if (item.type === 'button')
         {
+            console.log("button: "+item.fontColor)
             return (<button
             style = {{
                 width: '100%',
@@ -262,10 +273,10 @@ class ListScreen extends Component {
                 border:item.borderThickness,
                 borderRadius:item.borderRadius,
                 background: item.background,
-                color:item.fontColor,
+                //color:"green",//item.fontColor,
                 fontSize:item.fontSize
             }}
-            >{item.defaultValue}</button>)
+            ><label style={{color: item.fontColor}}>{item.defaultValue}</label></button>)
         }
         return (<div>Error</div>)
     }
@@ -274,7 +285,7 @@ class ListScreen extends Component {
     rePos = (e, d, index) => 
     {
         window.currentIndex = index;
-        //console.log("window: "+window.currentIndex);
+        console.log("window: "+window.currentIndex);
         let items = this.state.items;
         let item = items[window.currentIndex];
 
@@ -284,11 +295,89 @@ class ListScreen extends Component {
             item.x = d.x;
             item.y = d.y;
             items[window.currentIndex]=item;
-            this.setState({items:items,isSaved: false});
+            this.setState({
+                ...this.state,
+                items:items,isSaved: false});
         }
         //console.log(item);
         this.loadInfo();
     }
+
+    handleTextChange = (e) => 
+    {
+        let value = e.target.value;
+        let items = this.state.items;
+        let item = items[window.currentIndex];
+        item.defaultValue = value;
+        items[window.currentIndex]=item;
+        this.setState({...this.state,items:items,isSaved:false});
+    }
+
+
+    handleBackgroundChange = (e) => 
+    {
+        
+        let value = e.target.value;
+        let items = this.state.items;
+        let item = items[window.currentIndex];
+        item.background = value;
+        items[window.currentIndex]=item;
+        this.setState({...this.state,items:items,isSaved:false});
+        console.log(value);
+    }
+
+    handleFontColorChange = (e) => {
+        let value = e.target.value;
+        let items = this.state.items;
+        let item = items[window.currentIndex];
+        item.fontColor = value;
+        items[window.currentIndex]=item;
+        this.setState({...this.state,items:items,isSaved:false});
+        console.log(value);
+    }
+
+    handleFontSizeChange = (e) => 
+    {
+        let value = e.target.value;
+        let items = this.state.items;
+        let item = items[window.currentIndex];
+        item.fontSize = value;
+        items[window.currentIndex]=item;
+        this.setState({...this.state,items:items,isSaved:false});
+        
+    }
+
+    handleBorderRadiusChange = (e) => 
+    {
+        let value = e.target.value;
+        let items = this.state.items;
+        let item = items[window.currentIndex];
+        item.borderRadius = value;
+        items[window.currentIndex]=item;
+        this.setState({...this.state,items:items,isSaved:false});
+    }
+
+    handleBorderThicknessChange = (e) =>
+    {
+        let value = e.target.value;
+        let items = this.state.items;
+        let item = items[window.currentIndex];
+        item.borderThickness = value;
+        items[window.currentIndex]=item;
+        this.setState({...this.state,items:items,isSaved:false});
+    }
+
+    handleBorderColorChange = (e) =>
+    {
+        let value = e.target.value;
+        let items = this.state.items;
+        let item = items[window.currentIndex];
+        item.borderColor = value;
+        items[window.currentIndex]=item;
+        this.setState({...this.state,items:items,isSaved:false});
+        console.log(value);
+    }
+
 
     loadInfo = () => {
         let items = this.state.items;
@@ -299,9 +388,9 @@ class ListScreen extends Component {
         let background = document.getElementById('background');
         let fontColor = document.getElementById('fontColor');
         let fontSize = document.getElementById('fontSize');
+        let borderColor = document.getElementById('borderColor');
         let borderThickness = document.getElementById('borderThickness');
         let borderRadius = document.getElementById('borderRadius');
-
         if (item.type==='textfield')
         {
             //console.log("textfield");
@@ -311,34 +400,154 @@ class ListScreen extends Component {
             fontSize.disabled = false;
             borderThickness.disabled = false;
             borderRadius.disabled = false;
-            text.defaultValue = item.defaultValue;
-            //text.innerHTML = item.defaultValue;
+            borderColor.disabled = false;
+            
+            //load values
+            text.value = item.defaultValue; 
+            background.value = item.background;
+            fontColor.value = item.fontColor;
+            fontSize.value = item.fontSize;
+            borderThickness.value = item.borderThickness;
+            borderRadius.value = item.borderRadius;
+            borderColor.value = item.borderColor;
+            
+            //adding listner
+            text.addEventListener('change', (e) => this.handleTextChange(e));
+            background.addEventListener('change', (e)=> this.handleBackgroundChange(e));
+            fontColor.addEventListener('change', (e)=> this.handleFontColorChange(e));
+            fontSize.addEventListener('change', (e)=> this.handleFontSizeChange(e));
+            borderRadius.addEventListener('change', (e)=> this.handleBorderRadiusChange(e));
+            borderThickness.addEventListener('change', (e)=> this.handleBorderThicknessChange(e));
+            borderColor.addEventListener('change', (e)=> this.handleBorderColorChange(e));
+
         }
         else if(item.type==='label')
         {
-            //console.log("label");
+            text.disabled=false;
+            background.disabled = false;
+            fontColor.disabled = false;
+            fontSize.disabled = false;
+            borderThickness.disabled = false;
+            borderRadius.disabled = false;
+            borderColor.disabled = false;
+
+            //load values
+            text.value = item.defaultValue; 
+            background.value = item.background;
+            fontColor.value = item.fontColor;
+            fontSize.value = item.fontSize;
+            borderThickness.value = item.borderThickness;
+            borderRadius.value = item.borderRadius;
+            borderColor.value = item.borderColor;
+            
+            //adding listner
+            text.addEventListener('change', (e) => this.handleTextChange(e));
+            background.addEventListener('change', (e)=> this.handleBackgroundChange(e));
+            fontColor.addEventListener('change', (e)=> this.handleFontColorChange(e));
+            fontSize.addEventListener('change', (e)=> this.handleFontSizeChange(e));
+            borderRadius.addEventListener('change', (e)=> this.handleBorderRadiusChange(e));
+            borderThickness.addEventListener('change', (e)=> this.handleBorderThicknessChange(e));
+            borderColor.addEventListener('change', (e)=> this.handleBorderColorChange(e));
         }
         else if(item.type==='button')
         {
-            //console.log('button');
+            text.disabled=false;
+            background.disabled = false;
+            fontColor.disabled = false;
+            fontSize.disabled = false;
+            borderThickness.disabled = false;
+            borderRadius.disabled = false;
+            borderColor.disabled = false;
+
+            //load values
+            text.value = item.defaultValue; 
+            background.value = item.background;
+            fontColor.value = item.fontColor;
+            fontSize.value = item.fontSize;
+            borderThickness.value = item.borderThickness;
+            borderRadius.value = item.borderRadius;
+            borderColor.value = item.borderColor;
+
+            //adding listner
+            text.addEventListener('change', (e) => this.handleTextChange(e));
+            background.addEventListener('change', (e)=> this.handleBackgroundChange(e));
+            fontColor.addEventListener('change', (e)=> this.handleFontColorChange(e));
+            fontSize.addEventListener('change', (e)=> this.handleFontSizeChange(e));
+            borderRadius.addEventListener('change', (e)=> this.handleBorderRadiusChange(e));
+            borderThickness.addEventListener('change', (e)=> this.handleBorderThicknessChange(e));
+            borderColor.addEventListener('change', (e)=> this.handleBorderColorChange(e));
         }
         else if(item.type==='container')
         {
-            //console.log('container');
+            text.disabled=true;
+            background.disabled = false;
+            fontColor.disabled = true;
+            fontSize.disabled = true;
+            borderThickness.disabled = false;
+            borderRadius.disabled = false;
+            borderColor.disabled = false;
+
+            //load values
+            background.value = item.background;
+            borderThickness.value = item.borderThickness;
+            borderRadius.value = item.borderRadius;
+            borderColor.value = item.borderColor;
+
+            //adding listner
+            background.addEventListener('change', (e)=> this.handleBackgroundChange(e));
+            borderRadius.addEventListener('change', (e)=> this.handleBorderRadiusChange(e));
+            borderThickness.addEventListener('change', (e)=> this.handleBorderThicknessChange(e));
+            borderColor.addEventListener('change', (e)=> this.handleBorderColorChange(e));
         }
     }
 
     reSize = (e, direction, ref, delta, position, index) => {
-            //     this.setState({
-            //       width: ref.style.width,
-            //       height: ref.style.height,
-            //       ...position,
-            //     });
-            //   }
+        window.currentIndex = index;
+        console.log("window: "+window.currentIndex);
+        let items = this.state.items;
+        let item = items[window.currentIndex];
 
-            console.log("width: "+ref.style.width);
-            console.log("witd")
+        // Re position part
+        if (item.width!==ref.style.width && item.height!==ref.style.height)
+        {
+            item.width = ref.style.width;
+            item.height = ref.style.height;
+            items[window.currentIndex]=item;
+            this.setState({
+                ...this.state,
+                items:items,isSaved: false});
+        }
+        //console.log(item);
+        this.loadInfo();
 
+    }
+
+    unselect = () => {
+        console.log("unselect");
+        let text = document.getElementById('text');
+        let background = document.getElementById('background');
+        let fontColor = document.getElementById('fontColor');
+        let fontSize = document.getElementById('fontSize');
+        let borderColor = document.getElementById('borderColor');
+        let borderThickness = document.getElementById('borderThickness');
+        let borderRadius = document.getElementById('borderRadius');
+            
+
+        text.value = ''; 
+        background.value =  '';
+        fontColor.value = '';
+        fontSize.value = '';
+        borderThickness.value = '';
+        borderRadius.value = '';
+        borderColor.value = '';
+
+            text.disabled=true;
+            background.disabled = true;
+            fontColor.disabled = true;
+            fontSize.disabled = true;
+            borderThickness.disabled = true;
+            borderRadius.disabled = true;
+            borderColor.disabled = true;
     }
 
 
@@ -363,9 +572,6 @@ class ListScreen extends Component {
                 ifClicked: true,
             }));
         }
-        // console.log("name:"+this.state.name);
-        // this.setState({name:"a"});
-        // console.log("name:"+this.state.name);
         return (
             <div className="row">
                 <div id="list_delete_confirmation" hidden>
@@ -427,9 +633,9 @@ class ListScreen extends Component {
                 </div>
 
                 <div className='col s8' style={{height:'650px'}}>
-                    <div id="canvas" style={{height:'650px',width: '100%', border:"solid"}}>
-                    {/* <ItemsList todoList={todoList} items={this.state.items}/> */}
-                    <div className="todo-lists section">
+                    <div id="canvas" style={{height:'650px',width: '100%', border:"solid"}}
+                     onClick={()=> this.unselect()}
+                    >
                     {this.state.items.map((item) => {
                         let index = this.state.items.indexOf(item);
                         return (
@@ -440,7 +646,8 @@ class ListScreen extends Component {
                                 width: item.width,
                                 height: item.height,
                               }}
-                              onDragStop={(e, d) => this.rePos(e,d,index)}
+                              onClick={(event)=> event.stopPropagation()}
+                              onDragStop={(event, d) => this.rePos(event,d,index)}
                               onResizeStop={(e, direction, ref, delta, position) => {
                                   this.reSize(e, direction, ref, delta, position, index)
                               }}
@@ -453,7 +660,6 @@ class ListScreen extends Component {
                          )
                         ;})
                         }
-                        </div>
                     </div>
                 </div>
 
