@@ -47,7 +47,7 @@ class HomeScreen extends Component {
         let deleteListDialog = document.getElementById("list_delete_confirmation");
         deleteListDialog.classList.remove("list_dialog_slide_in");
         deleteListDialog.classList.add("list_dialog_slide_out");
-        window.setTimeout(() => (deleteListDialog.hidden = true), 400);
+        window.setTimeout(() => (deleteListDialog.hidden = true), 300);
     }
 
     render() {

@@ -13,10 +13,10 @@
                     "borderColor": "#000000",
                     "BorderThickness": 2,
                     "BorderRadius": 2,
-                    "width": "900px",
-                    "height": "800px",
-                    "x-pos":500,
-                    "y-pos":450
+                    "width": "300px",
+                    "height": "200px",
+                    "x":100,
+                    "y":100
                 },
                 {
                     "key":1,
@@ -24,8 +24,8 @@
                     "defaultValue": "Login",
                     "textColor": "#000000",
                     "fontSize": 14,
-                    "x-pos":100,
-                    "y-pos":100
+                    "x":100,
+                    "y":100
             
                 },
                 {
@@ -40,8 +40,8 @@
                     "BorderRadius": 2,
                     "width": "200px",
                     "height": "5opx",
-                    "x-pos":100,
-                    "y-pos":200
+                    "x":100,
+                    "y":200
                 },
                 {
                     "key":3,
@@ -55,8 +55,8 @@
                     "BorderRadius": 2,
                     "width": "200px",
                     "height": "50px",
-                    "x-pos":100,
-                    "y-pos":300
+                    "x":100,
+                    "y":300
                 },
                 {
                     "key":4,
@@ -70,8 +70,8 @@
                     "BorderRadius": 2,
                     "width": "180px",
                     "height": "50px",
-                    "x-pos":100,
-                    "y-pos":400
+                    "x":100,
+                    "y":400
                 }
                 ]
                     },
@@ -87,10 +87,10 @@
                                 "borderColor": "#000000",
                                 "BorderThickness": 2,
                                 "BorderRadius": 2,
-                                "width": "900px",
-                                "height": "800px",
-                                "x-pos": 500,
-                                "y-pos":450
+                                "width": "300px",
+                                "height": "400px",
+                                "x": 100,
+                                "y":100
                             },
                             {
                                 "key":1,
@@ -98,8 +98,8 @@
                                 "defaultValue": "Welcome to my Home Page",
                                 "textColor": "#000000",
                                 "fontSize": 14,
-                                "x-pos":100,
-                                "y-pos":100
+                                "x":200,
+                                "y":200
             
                             },
                             {
@@ -108,15 +108,30 @@
                                 "defaultValue": "This is the home page for my personal website",
                                 "textColor": "#000000",
                                 "fontSize": 10,
-                                "x-pos":100,
-                                "y-pos": 150
+                                "x":200,
+                                "y": 300
+                            },
+                            {
+                                "key":3,
+                                "type":"button",
+                                "defaultValue":"Submit Project",
+                                "textColor": "#000000",
+                                "fontSize": 12,
+                                "background": "#ffffff",
+                                "borderColor": "#000000",
+                                "BorderThickness": 2,
+                                "BorderRadius": 2,
+                                "width": "180px",
+                                "height": "50px",
+                                "x": 100,
+                                "y": 400
                             }
                         ]
                     },
                     {
                         "key": 2,
                         "name": "CSE316Homepage",
-                        "email": "me@me.com",
+                        "email": "a@a.com",
                         "items": [
                             {
                                 "key":0,
@@ -125,10 +140,10 @@
                                 "borderColor": "#000000",
                                 "BorderThickness": 2,
                                 "BorderRadius": 2,
-                                "width": "900px",
-                                "height": "800px",
-                                "x-pos":500,
-                                "y-pos":450
+                                "width": "300px",
+                                "height": "300px",
+                                "x":200,
+                                "y":200
                             },
                             {
                                 "key":1,
@@ -136,8 +151,8 @@
                                 "defaultValue": "CSE316Homepage",
                                 "textColor": "#000000",
                                 "fontSize": 14,
-                                "x-pos": 100,
-                                "y-pos": 150
+                                "x": 100,
+                                "y": 150
             
                             },
                             {
@@ -152,8 +167,8 @@
                                 "BorderRadius": 2,
                                 "width": "180px",
                                 "height": "50px",
-                                "x-pos": 100,
-                                "y-pos": 400
+                                "x": 100,
+                                "y": 400
                             }
                         ]
                     }

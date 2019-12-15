@@ -82,7 +82,13 @@ class WireframeLinks extends React.Component {
             <div className="todo-lists section">
                 {todoLists && todoLists.map(todoList => (
                     <div>
-                    <Link to={'/user/'+uid+'/wireframe/' + todoList.id} key={todoList.id}>
+                    <Link to={
+                        {
+                        pathname: '/user/'+uid+'/wireframe/' + todoList.id,
+                        state:{
+                            todoList:todoList
+                        }
+                        }} key={todoList.id}>
                         <WireframeCard todoList={todoList} id={todoList.id} />
                     </Link>
                    

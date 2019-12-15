@@ -21,25 +21,19 @@ class ItemsList extends React.Component {
 
     render() {
         const todoList = this.props.todoList;
-        const items = todoList.items;
-        const history = this.props.history;
+        const items = this.props.items;
         console.log("ItemsList: todoList.id " + todoList.id);
         return (
             <div className="todo-lists section">
-                {items && items.map(function(item) {
+                {items && items.map((item) => {
                     item.id = item.key;
                     let index = items.indexOf(item);
                     //let history = this.props.history;
                     return (
-                        <ItemCard todoList={todoList} item={item} index={index} 
-                        history = {history}
-                        isLast = {index===items.length-1} isFirst = {index===0}
+                        <ItemCard item={item} index={index} 
                         />
                     );})
                 }
-                <center className="list_item_card">
-                <Button floating icon={<Icon children="add"/>} onClick={() => this.addNewItem()}/>
-                </center>
             </div>
         );
     }
