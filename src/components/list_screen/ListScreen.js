@@ -13,6 +13,7 @@ class ListScreen extends Component {
     state = {
         name:'',
         items: [],
+        item: null,
         isSaved: true,
         ifClicked: false,
     }
@@ -30,14 +31,17 @@ class ListScreen extends Component {
 
     handleNameChange = (e) => {
         //const {todoList} = this.props.location.state;
-        let todoList = this.props.todoList;
-        const list = getFirestore().collection("todoLists").doc(todoList.id);
+        // let todoList = this.props.todoList;
+        // const list = getFirestore().collection("todoLists").doc(todoList.id);
         let value = e.target.value;
         if (value==='')
             value = 'unknown';
-        list.update({
-            name: value
-        })
+        // list.update({
+        //     name: value
+        // })
+        this.setState({...this.state,name:value,isSaved:false});
+        document.getElementById("save").disabled = false;
+    
     }
 
     showDeleteListDialog = () => {
@@ -61,7 +65,8 @@ class ListScreen extends Component {
             let todoList = this.props.todoList;
             let listID = todoList.id;
             getFirestore().collection("todoLists").doc(listID).update({
-                items:this.state.items
+                items:this.state.items,
+                name:this.state.name
             })
             this.setState({...this.state,
                 isSaved:true});
@@ -139,6 +144,7 @@ class ListScreen extends Component {
         this.setState({
             ...this.state,
             items:items, 
+            
             isSaved: false});
         document.getElementById("save").disabled = false;
     }
@@ -167,6 +173,7 @@ class ListScreen extends Component {
         this.setState({
             ...this.state,
             items:items, 
+            
             isSaved: false});
         document.getElementById("save").disabled = false;
     }
@@ -195,6 +202,7 @@ class ListScreen extends Component {
         this.setState({
             ...this.state,
             items:items, 
+            
             isSaved: false});
         document.getElementById("save").disabled = false;
     }
@@ -300,6 +308,7 @@ class ListScreen extends Component {
             items[window.currentIndex]=item;
             this.setState({
                 ...this.state,
+                
                 items:items,isSaved: false});
         }
         //console.log(item);
@@ -528,7 +537,7 @@ class ListScreen extends Component {
             item.height = ref.style.height;
             items[window.currentIndex]=item;
             this.setState({
-                ...this.state,
+                ...this.state,               
                 items:items,isSaved: false});
         }
         //console.log(item);
@@ -539,6 +548,8 @@ class ListScreen extends Component {
 
     unselect = () => {
         console.log("unselect");
+        window.currentIndex = -1;
+
         let text = document.getElementById('text');
         let background = document.getElementById('background');
         let fontColor = document.getElementById('fontColor');
@@ -563,6 +574,32 @@ class ListScreen extends Component {
             borderThickness.disabled = true;
             borderRadius.disabled = true;
             borderColor.disabled = true;
+
+    }
+
+    keyUpEvent = (event) => 
+    {
+        //event.preventDefault()
+        if (window.currentIndex!==-1)
+        {
+            //event.preventDefault()
+            if (event.ctrlKey && event.keyCode === 'D')
+            {
+                //event.preventDefault()
+                let item = this.state.items[window.currentIndex];
+                console.log("D");
+            }
+            else if (event.keyCode === 46)
+            {
+                console.log("delete");
+                let items = this.state.items;
+                items.splice(window.currentIndex, 1);
+                this.setState({...this.state, items:items});
+                this.unselect();
+            }
+        }
+        else
+            console.log("Error");
     }
 
 
@@ -579,14 +616,18 @@ class ListScreen extends Component {
         }
         if (!this.state.ifClicked){
             this.setNewTime(todoList);
-            window.currentIndex= -1;
+            window.currentIndex = -1;
             this.setState(state => ({
                 ...state,
                 name: todoList.name,
                 items: todoList.items,
                 ifClicked: true,
             }));
+            //window.addEventListener('keyup', (event)=> event.preventDefault());
+            window.addEventListener('keyup', this.keyUpEvent);
+            
         }
+
         return (
             <div className="row">
                 <div id="list_delete_confirmation" hidden>

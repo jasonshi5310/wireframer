@@ -11,6 +11,7 @@ class RegisterScreen extends Component {
     password: '',
     firstName: '',
     lastName: '',
+    accountType:'Designer'
   }
 
   handleChange = (e) => {

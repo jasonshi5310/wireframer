@@ -52,16 +52,32 @@ class HomeScreen extends Component {
         window.setTimeout(() => (deleteListDialog.hidden = true), 300);
     }
 
+    isAdmin = () => 
+    {
+        let type = window.type;
+        if (type==="Administrator")
+            return false;
+        else 
+            return true;
+    }
+
+    openDataBaseTester = () => {
+        window.open("http://localhost:3000/databaseTester"); 
+    }
+
     render() {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
-
+        //let uid = "r6TzTeVO36yWtHamPRZy";
         const uid = firebase.auth().currentUser.uid;
+        console.log(uid)
         window.db.collection("users").doc(uid).get().then(
             function (doc) {
                 //console.log(doc.data().email);
                 window.email = doc.data().email;
+                window.type = doc.data().accountType;
+                console.log(window.type);
             }
         )
 
@@ -81,6 +97,7 @@ class HomeScreen extends Component {
                     <p className="list_delete_confirmation_message">The diagram will not be retreivable.</p>
                 </div>
                 </div>
+                <button id="databaseTester" hidden={this.isAdmin()} onClick={this.openDataBaseTester}>Open Test Database</button>
                 <div className="row">
                     <div className="col s12 m4" id="wireframeList">
                         <br></br>

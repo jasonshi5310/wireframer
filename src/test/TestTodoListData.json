@@ -45,7 +45,7 @@
                     "borderThickness": "2px",
                     "borderRadius": "2px",
                     "width": "200px",
-                    "height": "50px",
+                    "height": "100px",
                     "x":100,
                     "y":200
                 },
@@ -60,7 +60,7 @@
                     "borderThickness": "2px",
                     "borderRadius": "2px",
                     "width": "200px",
-                    "height": "50px",
+                    "height": "100px",
                     "x":100,
                     "y":300
                 },
@@ -151,7 +151,7 @@
                                 "borderThickness": "2px",
                                 "borderRadius": "2px",
                                 "width": "180px",
-                                "height": "50px",
+                                "height": "100px",
                                 "x": 100,
                                 "y": 300
                             }
