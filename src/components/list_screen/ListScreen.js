@@ -29,7 +29,8 @@ class ListScreen extends Component {
     }
 
     handleNameChange = (e) => {
-        const {todoList} = this.props.location.state;
+        //const {todoList} = this.props.location.state;
+        let todoList = this.props.todoList;
         const list = getFirestore().collection("todoLists").doc(todoList.id);
         let value = e.target.value;
         if (value==='')
@@ -52,22 +53,12 @@ class ListScreen extends Component {
         window.setTimeout(() => (deleteListDialog.hidden = true), 500);
     }
 
-    deleteList = () => {
-        let deleteListDialog = document.getElementById("list_delete_confirmation");
-        deleteListDialog.classList.remove("list_dialog_slide_in");
-        deleteListDialog.classList.add("list_dialog_slide_out");
-       // this.props.delList();
-        getFirestore().collection("todoLists").doc(this.props.todoList.id).delete();
-        window.setTimeout(() => this.props.history.goBack(), 500);
-        window.setTimeout(() => (deleteListDialog.hidden = true), 500);
-
-    }
-
     saveWorks = () => {
         console.log("save");
         if (!this.state.isSaved)
         {
-            const {todoList} = this.props.location.state;
+            //const {todoList} = this.props.location.state;
+            let todoList = this.props.todoList;
             let listID = todoList.id;
             getFirestore().collection("todoLists").doc(listID).update({
                 items:this.state.items
@@ -107,9 +98,9 @@ class ListScreen extends Component {
             "type": "container",
             "background": "white",
             "borderColor": "black",
-            "BorderThickness": 2,
-            "BorderRadius": 2,
-            "width": "150px",
+            "borderThickness": "solid",
+            "borderRadius": 2,
+            "width": "200px",
             "height": "50px",
             "x":0,
             "y":0
@@ -132,10 +123,12 @@ class ListScreen extends Component {
             "defaultValue": 'Prompt for Input',
             "background": "white",
             "borderColor": "black",
-            "BorderThickness": 2,
-            "BorderRadius": 2,
+            "borderThickness": 0,
+            "borderRadius": 2,
             "width": "150px",
             "height": "50px",
+            "fontColor": "black",
+            "fontSize":  "12",
             "x":0,
             "y":0
         };
@@ -155,10 +148,12 @@ class ListScreen extends Component {
             "defaultValue": 'Submit',
             "background": "white",
             "borderColor": "black",
-            "BorderThickness": 2,
-            "BorderRadius": 2,
-            "width": "150px",
-            "height": "50px",
+            "borderThickness": "solid",
+            "borderRadius": 2,
+            "width": "90px",
+            "height": "30px",
+            "fontColor": "black",
+            "fontSize":  "12",
             "x":0,
             "y":0
         };
@@ -177,10 +172,13 @@ class ListScreen extends Component {
             "type": "textfield",
             "background": "white",
             "borderColor": "black",
-            "BorderThickness": 2,
-            "BorderRadius": 2,
+            "borderThickness": 0,
+            "borderRadius": 2,
             "width": "150px",
             "height": "50px",
+            'defaultValue':"Input",
+            "fontColor": "grey",
+            "fontSize":  "12",
             "x":0,
             "y":0
         };
@@ -211,60 +209,67 @@ class ListScreen extends Component {
         //return (<input defaultValue={item.type}></input>)
         if (item.type === 'textfield')
         {
-            //let i = document.createElement('input');
-            //return i;
-            return (<input value=''
-            style = {{color:'black',
-            width: '100%',
-            height:'100%'
-            }}></input>)
+            return (
+            <div className="input-field" 
+                style = {{
+                width: '100%',
+                height:'100%',
+                borderColor: item.borderColor,
+                border:item.borderThickness,
+                borderRadius:item.borderRadius,
+                background: item.background,
+                }}>
+            <label style={{color:item.fontColor, fontSize:item.fontSize}}>{item.defaultValue}</label>
+            <input disabled/>
+            </div> 
+            )
         }
         else if (item.type === 'label')
         {
-            // let l = document.createElement('label');
-            // l.innerHTML = item.defaultValue;
-            // l.style.color = 'black';
-            //let text = item.defaultValue;
-            //return l;
             return (<label
-            style = {{color:'black',
+            style = {{
                 width: '100%',
-                height:'100%'
+                height:'100%',
+                borderColor: item.borderColor,
+                border:item.borderThickness,
+                borderRadius:item.borderRadius,
+                background: item.background,
+                color:item.fontColor,
+                fontSize:item.fontSize
         }}
             >{item.defaultValue}</label>)
         }
         else if (item.type === 'container')
         {
-            // let c = document.createElement('div');
-            // c.style.border = 'solid';
-            //return c;
             return (<div 
-            style = {{border:'solid',
+            style = {{
                 width: '100%',
-                height: '100%'
+                height: '100%',
+                borderColor: item.borderColor,
+                border:item.borderThickness,
+                borderRadius:item.borderRadius,
+                background: item.background,
         }}
             ></div>)
         }
         if (item.type === 'button')
         {
-            // let b = document.createElement('button');
-            // b.innerHTML = item.text;
-            // return b;
             return (<button
             style = {{
                 width: '100%',
-                height : '100%'
+                height : '100%',
+                borderColor: item.borderColor,
+                border:item.borderThickness,
+                borderRadius:item.borderRadius,
+                background: item.background,
+                color:item.fontColor,
+                fontSize:item.fontSize
             }}
             >{item.defaultValue}</button>)
         }
         return (<div>Error</div>)
     }
 
-    // selectItem = (index) =>
-    // {
-    //     window.currentIndex = index;
-    //     console.log("window: "+window.currentIndex);
-    // }
 
     rePos = (e, d, index) => 
     {
@@ -297,21 +302,42 @@ class ListScreen extends Component {
         let borderThickness = document.getElementById('borderThickness');
         let borderRadius = document.getElementById('borderRadius');
 
+        if (item.type==='textfield')
+        {
+            //console.log("textfield");
+            text.disabled=false;
+            background.disabled = false;
+            fontColor.disabled = false;
+            fontSize.disabled = false;
+            borderThickness.disabled = false;
+            borderRadius.disabled = false;
+            text.defaultValue = item.defaultValue;
+            //text.innerHTML = item.defaultValue;
+        }
+        else if(item.type==='label')
+        {
+            //console.log("label");
+        }
+        else if(item.type==='button')
+        {
+            //console.log('button');
+        }
+        else if(item.type==='container')
+        {
+            //console.log('container');
+        }
+    }
 
-{/* <input id='text' disabled/>
+    reSize = (e, direction, ref, delta, position, index) => {
+            //     this.setState({
+            //       width: ref.style.width,
+            //       height: ref.style.height,
+            //       ...position,
+            //     });
+            //   }
 
-                    <input id="background" name="Color Picker" type="color" disabled/>
-                    <input id="borderColor" name="Color Picker" type="color" disabled/>
-                    <input id="fontColor" name="Color Picker" type="color" disabled/>
-                    <input id="fontSize" disabled/>
-                    <input id="borderThickness" disabled/>
-                </div>
-                </span>
-                <span><span>Border Radius: </span>
-                <div className="input-field">
-                    <input id="borderRadius" 
- */}
-
+            console.log("width: "+ref.style.width);
+            console.log("witd")
 
     }
 
@@ -319,9 +345,8 @@ class ListScreen extends Component {
 
     render() {
         const auth = this.props.auth;
-        //const todoList = this.props.todoList;
-        const {todoList} = this.props.location.state;
-        //console.log(todoList)
+        const todoList = this.props.todoList;
+            
         if (!auth.uid) {
             return <Redirect to="/" />;
         }
@@ -416,17 +441,12 @@ class ListScreen extends Component {
                                 height: item.height,
                               }}
                               onDragStop={(e, d) => this.rePos(e,d,index)}
-                            //   onResizeStop={(e, direction, ref, delta, position) => {
-                            //     this.setState({
-                            //       width: ref.style.width,
-                            //       height: ref.style.height,
-                            //       ...position,
-                            //     });
-                            //   }}
-                              
+                              onResizeStop={(e, direction, ref, delta, position) => {
+                                  this.reSize(e, direction, ref, delta, position, index)
+                              }}
                               bounds = "#canvas"
-                              minHeight = {50}
-                              minWidth = {50}
+                              minHeight = {30}
+                              minWidth = {30}
                             >
                                 {this.renderElement(item)}
                             </Rnd>
@@ -442,6 +462,7 @@ class ListScreen extends Component {
                 <br></br>
                 <div className="input-field">
                     <label style={{color:"darkgrey"}}>text</label>
+                    <br></br>
                     <input id='text' disabled/>
                 </div>
                 <br></br>

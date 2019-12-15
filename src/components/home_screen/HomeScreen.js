@@ -20,11 +20,13 @@ class HomeScreen extends Component {
         })
 
         const uid = firebase.auth().currentUser.uid;
+        //console.log("new list id"+newList.id)
 
         this.props.history.push({
             pathname: "/user/"+uid+"/wireframe/"+newList.id,
-            key: newList.id
+            key: newList.id,
         });
+
     }
 
     deleteList = (event) => {
@@ -107,6 +109,7 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        todoLists: state.firestore.ordered.todoLists,
         auth: state.firebase.auth
     };
 };
