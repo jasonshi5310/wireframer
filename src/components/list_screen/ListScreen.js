@@ -663,8 +663,9 @@ class ListScreen extends Component {
            wireframe.height = height;
            wireframe.width = width;
            document.getElementById("save").disabled = false;
-           this.setState({...this.state, isSaved:false});
+           this.setState({...this.state, update:true, isSaved:false});
         }
+        else
         this.setState({...this.state, update:true});
     }
 
@@ -721,7 +722,7 @@ class ListScreen extends Component {
                 <span> 
                     <i className="material-icons" onClick={this.zoomIn}>zoom_in</i>
                     <i className="material-icons" onClick={this.zoomOut}>zoom_out</i>
-                    <Button id="save"className="btn-small" onClick={this.saveWorks}>Save</Button>
+                    <Button id="save"className="btn-small" onClick={this.saveWorks} disabled={this.state.isSaved}>Save</Button>
                     <Button id="close" className="btn-small" onClick={this.closeWorks}>Close</Button>
                 </span>
                 <div className="input-field">
