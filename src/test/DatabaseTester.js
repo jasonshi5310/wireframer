@@ -21,8 +21,7 @@ class DatabaseTester extends React.Component {
                 if (doc.data().email===email)
                 {console.log("deleting " + doc.id);
                 fireStore.collection('todoLists').doc(doc.id).delete();}
-            })
-                
+            }) 
             }
         );
     })
@@ -38,20 +37,28 @@ class DatabaseTester extends React.Component {
 
     handleReset = () => {
         const fireStore = getFirestore();
-        todoJson.todoLists.forEach(todoListJson => {
-            fireStore.collection('todoLists').add({
-                    name: todoListJson.name,
-                    email: todoListJson.email,
-                    items: todoListJson.items,
-                    width: todoListJson.width,
-                    height: todoListJson.height,
-                    time: Date.now()
-                }).then(() => {
-                    console.log("DATABASE RESET");
-                }).catch((err) => {
-                    console.log(err);
+        let uid = firebase.auth().currentUser.uid;
+        getFirestore().collection('users').doc(uid).get().then(
+            function (doc) {
+                let email = doc.data().email;
+                todoJson.todoLists.forEach(todoListJson => {
+                    if (todoListJson.email===email)
+                    {
+                        fireStore.collection('todoLists').add({
+                            name: todoListJson.name,
+                            email: todoListJson.email,
+                            items: todoListJson.items,
+                            width: todoListJson.width,
+                            height: todoListJson.height,
+                            time: Date.now()
+                        }).then(() => {
+                            console.log("DATABASE RESET");
+                        }).catch((err) => {
+                            console.log(err);
+                        });
+                    }
                 });
-        });
+        })
     }
 
     render() {
