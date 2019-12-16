@@ -614,8 +614,33 @@ class ListScreen extends Component {
                 let items = this.state.items;
                 items.splice(window.currentIndex, 1);
                 this.setState({...this.state, items:items, isSaved:false});
-                this.unselect();
                 document.getElementById("save").disabled = false;
+                window.currentIndex = -1;
+
+                let text = document.getElementById('text');
+                let background = document.getElementById('background');
+                let fontColor = document.getElementById('fontColor');
+                let fontSize = document.getElementById('fontSize');
+                let borderColor = document.getElementById('borderColor');
+                let borderThickness = document.getElementById('borderThickness');
+                let borderRadius = document.getElementById('borderRadius');
+                    
+        
+                text.value = ''; 
+                background.value =  '';
+                fontColor.value = '';
+                fontSize.value = '';
+                borderThickness.value = '';
+                borderRadius.value = '';
+                borderColor.value = '';
+        
+                    text.disabled=true;
+                    background.disabled = true;
+                    fontColor.disabled = true;
+                    fontSize.disabled = true;
+                    borderThickness.disabled = true;
+                    borderRadius.disabled = true;
+                    borderColor.disabled = true;
             }
         }
         else
@@ -766,11 +791,12 @@ class ListScreen extends Component {
                 </div>
 
                 <div className='col s8' style={{height:'650px', overflow: 'auto'}}>
-                    <div id="canvas" style={{overflow: 'auto',
+                    <div id="canvas" style={{overflow: 'auto',transform: 'scale('+this.state.scale+')',
+                    height:this.state.wireframe.height ,width: this.state.wireframe.width, border:"solid"
                     }} tabIndex='0'
                      onClick={()=> this.unselect()} onKeyDown={(e)=>this.keyDownEvent(e)}
                     >
-                        <div style={{transform: 'scale('+this.state.scale+')',height:this.state.wireframe.height ,width: this.state.wireframe.width, border:"solid"}}>
+                        <div>
                     {this.state.items.map((item) => {
                         let index = this.state.items.indexOf(item);
                         return (
