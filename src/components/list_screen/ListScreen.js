@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import ItemCard from './ItemCard.js'
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import {Button} from 'react-materialize';
@@ -14,7 +13,7 @@ class ListScreen extends Component {
         name:'',
         items: [],
         item: null,
-        isSaved: true,
+        isSaved: false,
         ifClicked: false,
         scale: 1,
         update:true,
@@ -33,15 +32,9 @@ class ListScreen extends Component {
     }
 
     handleNameChange = (e) => {
-        //const {todoList} = this.props.location.state;
-        // let todoList = this.props.todoList;
-        // const list = getFirestore().collection("todoLists").doc(todoList.id);
         let value = e.target.value;
         if (value==='')
             value = 'unknown';
-        // list.update({
-        //     name: value
-        // })
         this.setState({...this.state,name:value,isSaved:false});
         document.getElementById("save").disabled = false;
     
@@ -63,17 +56,19 @@ class ListScreen extends Component {
     saveWorks = () => {
         if (!this.state.isSaved)
         {
-            //const {todoList} = this.props.location.state;
             let todoList = this.props.todoList;
             let listID = todoList.id;
             getFirestore().collection("todoLists").doc(listID).update({
                 items:this.state.items,
-                name:this.state.name
+                name:this.state.name,
+                width: this.state.wireframe.width,
+                height:this.state.wireframe.height
             })
             this.setState({...this.state,
                 isSaved:true});
         }
         document.getElementById("save").disabled = true;
+        console.log("save");
         
     }
 
@@ -658,17 +653,17 @@ class ListScreen extends Component {
     {
         let width = Number(document.getElementById("width").value);
         let height = Number(document.getElementById("height").value);
+        document.getElementById("save").disabled = false;
         if (Number.isInteger(width)&&Number.isInteger(height) &&
          Number(width)<=5000 && Number(height)<=5000 &&
          Number(width)>=1 && Number(height)>=1
         )
         {
-           // let canvas = document.getElementById("canvas");
            let wireframe = this.state.wireframe;
            wireframe.height = height;
            wireframe.width = width;
-            this.setState({...this.state, wireframe:wireframe});
-            console.log("height"+this.state.wireframe);
+           document.getElementById("save").disabled = false;
+           this.setState({...this.state, isSaved:false});
         }
         this.setState({...this.state, update:true});
     }
@@ -726,7 +721,7 @@ class ListScreen extends Component {
                 <span> 
                     <i className="material-icons" onClick={this.zoomIn}>zoom_in</i>
                     <i className="material-icons" onClick={this.zoomOut}>zoom_out</i>
-                    <Button id="save"className="btn-small" onClick={this.saveWorks} disabled={this.state.isSaved}>Save</Button>
+                    <Button id="save"className="btn-small" onClick={this.saveWorks}>Save</Button>
                     <Button id="close" className="btn-small" onClick={this.closeWorks}>Close</Button>
                 </span>
                 <div className="input-field">
@@ -758,13 +753,13 @@ class ListScreen extends Component {
                 <span className="input-field">
                     <label className="active" style={{color:"darkgrey"}}>Height</label>
                     <input className="active" type="text" id="height" onChange={this.handleDimensionChange}
-                    defaultValue='650px'/>
+                    defaultValue={this.state.wireframe.height}/>
                 </span> 
                 <br></br>
                 <span className="input-field">
                     <label className="active" style={{color:"darkgrey"}}>Width</label>
                     <input className="active" type="text" id="width" onChange={this.handleDimensionChange}
-                    defaultValue='100%'/>
+                    defaultValue={this.state.wireframe.width}/>
                 </span> 
                 <button disabled={this.state.update} onClick={this.updateDimension}>Update</button>
                 </div>

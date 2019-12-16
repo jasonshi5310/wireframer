@@ -16,11 +16,12 @@ class HomeScreen extends Component {
             name: "unknown",
             email:window.email,
             items: [],
+            width:'100%',
+            height: "650px",
             time: Date.UTC(2077,3,16,19,32,11)
         })
 
         const uid = firebase.auth().currentUser.uid;
-        //console.log("new list id"+newList.id)
 
         this.props.history.push({
             pathname: "/user/"+uid+"/wireframe/"+newList.id,
@@ -69,15 +70,11 @@ class HomeScreen extends Component {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
-        //let uid = "r6TzTeVO36yWtHamPRZy";
         const uid = firebase.auth().currentUser.uid;
-        console.log(uid)
         window.db.collection("users").doc(uid).get().then(
             function (doc) {
-                //console.log(doc.data().email);
                 window.email = doc.data().email;
                 window.type = doc.data().accountType;
-                console.log(window.type);
             }
         )
 

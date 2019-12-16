@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import todoJson from './TestTodoListData.json'
 import { getFirestore } from 'redux-firestore';
+import firebase from 'firebase/app';
 
 class DatabaseTester extends React.Component {
 
@@ -11,13 +12,29 @@ class DatabaseTester extends React.Component {
     handleClear = () => {
         console.log("cleared")
         const fireStore = getFirestore();
-        fireStore.collection('todoLists').get().then(function(querySnapshot){
-            querySnapshot.forEach(function(doc) {
-                console.log("deleting " + doc.id);
-                fireStore.collection('todoLists').doc(doc.id).delete();
+        let uid = firebase.auth().currentUser.uid;
+        getFirestore().collection('users').doc(uid).get().then(
+            function (doc) {
+                let email = doc.data().email;
+                fireStore.collection('todoLists').get().then(function(querySnapshot){
+                querySnapshot.forEach(function(doc) {
+                if (doc.data().email===email)
+                {console.log("deleting " + doc.id);
+                fireStore.collection('todoLists').doc(doc.id).delete();}
             })
-        });
-    }
+                
+            }
+        );
+    })
+        // fireStore.collection('todoLists').get().then(function(querySnapshot){
+        //     querySnapshot.forEach(function(doc) {
+        //         console.log("deleting " + doc.id);
+        //         let uid = firebase.auth().currentUser.uid;
+        //         getFirestore.collection('users').doc(uid).get().then
+        //         fireStore.collection('todoLists').doc(doc.id).delete();
+        //     })
+        // });
+}
 
     handleReset = () => {
         const fireStore = getFirestore();
